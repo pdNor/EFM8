@@ -17,8 +17,7 @@ void uHalDelayUsecTimer( unsigned int us )
 #if CPU_CLK == 9000000
 void uHalDelayUsec( unsigned char us )
 {
-	unsigned char sUs;
-	sUs = us;
+	/* Call delay function in assembly */
 	a_func ();
 }
 #elif CPU_CLK == 3000000

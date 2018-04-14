@@ -6,8 +6,8 @@ NAME    A_FUNC
         RSEG    ?PR?a_func?A_FUNC
 a_func:
         USING   0
-        POP     34h
-        MOV	    34h,r7
+;       POP     34h
+;        MOV	    34h,r7
 AGAIN: 	NOP
 		NOP
 		NOP
