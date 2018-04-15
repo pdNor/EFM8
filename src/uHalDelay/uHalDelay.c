@@ -6,11 +6,22 @@
  */
 #include "uHalDelay.h"
 #include "common.h"
-extern void a_func (void);
+#include <SI_EFM8LB1_Register_Enums.h>
+
+extern void delayUs (void);
 
 /* Delay function using Timer 0 */
-void uHalDelayUsecTimer( unsigned int us )
+void uHalDelayUsecTimer( unsigned short int us )
 {
+	us = (us<<1)^0xFFFF;
+	TL0 = (unsigned char)(us & 0xFF);
+	TH0 = (unsigned char)(us >> 8);
+	TCON |= (1<<4);
+	while( (TCON & (1<<5)) == 0 )
+	{
+		//wait for timer to ovrf
+	}
+	TCON &=0xCF;
 }
 
 /* Delay function using nop instructions */
@@ -18,7 +29,7 @@ void uHalDelayUsecTimer( unsigned int us )
 void uHalDelayUsec( unsigned char us )
 {
 	/* Call delay function in assembly */
-	a_func ();
+	delayUs();
 }
 #elif CPU_CLK == 3000000
 void uHalDelayUsec( unsigned char us )

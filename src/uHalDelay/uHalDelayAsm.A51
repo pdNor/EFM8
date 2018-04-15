@@ -1,16 +1,12 @@
-NAME    A_FUNC
+NAME    DELAY
 
-?PR?a_func?A_FUNC    SEGMENT CODE
-        PUBLIC  a_func
+?PR?delayUs?DELAY    SEGMENT CODE
+        PUBLIC  delayUs
 
-        RSEG    ?PR?a_func?A_FUNC
-a_func:
+        RSEG    ?PR?delayUs?DELAY
+delayUs:
         USING   0
-;       POP     34h
-;        MOV	    34h,r7
 AGAIN: 	NOP
-		NOP
-		NOP
 		NOP
 		NOP
 		NOP

@@ -16,13 +16,23 @@
     <property object="P0.2" propertyId="ports.settings.latch" value="Low"/>
     <property object="P0.3" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
     <property object="P0.3" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P1.0" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.0" propertyId="ports.settings.latch" value="Low"/>
+    <property object="P1.0" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P1.1" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.1" propertyId="ports.settings.latch" value="Low"/>
+    <property object="P1.1" propertyId="ports.settings.outputmode" value="Push-pull"/>
     <property object="PBCFG_0" propertyId="pbcfg.settings.enablecrossbar" value="Enabled"/>
     <property object="TIMER01_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER16_2" propertyId="ABPeripheral.included" value="true"/>
+    <property object="TIMER16_2" propertyId="timer16.control.clocksource" value="SYSCLK"/>
     <property object="TIMER16_3" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER16_4" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER16_5" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER_SETUP_0" propertyId="ABPeripheral.included" value="true"/>
+    <property object="TIMER_SETUP_0" propertyId="timer_setup.clockcontrol.timer2lowbyteclockselect" value="Use SYSCLK"/>
+    <property object="TIMER_SETUP_0" propertyId="timer_setup.clockcontrol0.timer01prescale" value="SYSCLK / 4"/>
+    <property object="TIMER_SETUP_0" propertyId="timer_setup.timer0.mode" value="Mode 1, 16-bit Counter/Timer"/>
     <property object="WDT_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="WDT_0" propertyId="wdt.watchdogcontrol.wdtenable" value="Disable"/>
   </mode>

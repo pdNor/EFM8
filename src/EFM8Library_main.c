@@ -4,7 +4,7 @@
 #include <SI_EFM8LB1_Register_Enums.h>                // SFR declarations
 #include "InitDevice.h"
 #include "uHalDelay.h"
-extern void _uHalDelayUsec(unsigned char c);
+#include <SI_EFM8LB1_Register_Enums.h>
 //-----------------------------------------------------------------------------
 // SiLabs_Startup() Routine
 // ----------------------------------------------------------------------------
@@ -33,6 +33,13 @@ int main (void)
 {
 	enter_DefaultMode_from_RESET();
 	while (1) {
-		uHalDelayUsec(50);
+		P1 &= P1_B0__LOW;
+		uHalDelayUsec(3);
+		//uHalDelayUsecTimer(200);
+		P1 |= P1_B0__HIGH;
+		uHalDelayUsec(3);
+		//uHalDelayUsecTimer(200);
+		P1 &= P1_B0__LOW;
+		//uHalDelayUsecTimer(22937);
 	}                             // Spin forever
 }

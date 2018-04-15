@@ -9,5 +9,5 @@
 #define UHALDELAY_H_
 
 void uHalDelayUsec( unsigned char us );
-void uHalDelayUsecTimer( unsigned int us );
+void uHalDelayUsecTimer( unsigned short int us );
 #endif /* UHALDELAY_H_ */

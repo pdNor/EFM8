@@ -22,8 +22,11 @@ extern void enter_DefaultMode_from_RESET(void) {
 	uint8_t SFRPAGE_save = SFRPAGE;
 	WDT_0_enter_DefaultMode_from_RESET();
 	PORTS_0_enter_DefaultMode_from_RESET();
+	PORTS_1_enter_DefaultMode_from_RESET();
 	PBCFG_0_enter_DefaultMode_from_RESET();
 	CLOCK_0_enter_DefaultMode_from_RESET();
+	TIMER16_2_enter_DefaultMode_from_RESET();
+	TIMER_SETUP_0_enter_DefaultMode_from_RESET();
 	// Restore the SFRPAGE
 	SFRPAGE = SFRPAGE_save;
 	// [Config Calls]$
@@ -161,6 +164,128 @@ extern void CLOCK_0_enter_DefaultMode_from_RESET(void) {
 }
 
 extern void CIP51_0_enter_DefaultMode_from_RESET(void) {
+
+}
+
+extern void PORTS_1_enter_DefaultMode_from_RESET(void) {
+	// $[P1 - Port 1 Pin Latch]
+	/***********************************************************************
+	 - P1.0 is low. Set P1.0 to drive low
+	 - P1.1 is low. Set P1.1 to drive low
+	 - P1.2 is high. Set P1.2 to drive or float high
+	 - P1.3 is high. Set P1.3 to drive or float high
+	 - P1.4 is high. Set P1.4 to drive or float high
+	 - P1.5 is high. Set P1.5 to drive or float high
+	 - P1.6 is high. Set P1.6 to drive or float high
+	 - P1.7 is high. Set P1.7 to drive or float high
+	 ***********************************************************************/
+	P1 = P1_B0__LOW | P1_B1__LOW | P1_B2__HIGH | P1_B3__HIGH | P1_B4__HIGH
+			| P1_B5__HIGH | P1_B6__HIGH | P1_B7__HIGH;
+	// [P1 - Port 1 Pin Latch]$
+
+	// $[P1MDOUT - Port 1 Output Mode]
+	/***********************************************************************
+	 - P1.0 output is push-pull
+	 - P1.1 output is push-pull
+	 - P1.2 output is open-drain
+	 - P1.3 output is open-drain
+	 - P1.4 output is open-drain
+	 - P1.5 output is open-drain
+	 - P1.6 output is open-drain
+	 - P1.7 output is open-drain
+	 ***********************************************************************/
+	P1MDOUT = P1MDOUT_B0__PUSH_PULL | P1MDOUT_B1__PUSH_PULL
+			| P1MDOUT_B2__OPEN_DRAIN | P1MDOUT_B3__OPEN_DRAIN
+			| P1MDOUT_B4__OPEN_DRAIN | P1MDOUT_B5__OPEN_DRAIN
+			| P1MDOUT_B6__OPEN_DRAIN | P1MDOUT_B7__OPEN_DRAIN;
+	// [P1MDOUT - Port 1 Output Mode]$
+
+	// $[P1MDIN - Port 1 Input Mode]
+	// [P1MDIN - Port 1 Input Mode]$
+
+	// $[P1SKIP - Port 1 Skip]
+	// [P1SKIP - Port 1 Skip]$
+
+	// $[P1MASK - Port 1 Mask]
+	// [P1MASK - Port 1 Mask]$
+
+	// $[P1MAT - Port 1 Match]
+	// [P1MAT - Port 1 Match]$
+
+}
+
+extern void TIMER_SETUP_0_enter_DefaultMode_from_RESET(void) {
+	// $[CKCON0 - Clock Control 0]
+	/***********************************************************************
+	 - System clock divided by 4
+	 - Counter/Timer 0 uses the clock defined by the prescale field, SCA
+	 - Timer 2 high byte uses the clock defined by T2XCLK in TMR2CN0
+	 - Timer 2 low byte uses the system clock
+	 - Timer 3 high byte uses the clock defined by T3XCLK in TMR3CN0
+	 - Timer 3 low byte uses the clock defined by T3XCLK in TMR3CN0
+	 - Timer 1 uses the clock defined by the prescale field, SCA
+	 ***********************************************************************/
+	CKCON0 = CKCON0_SCA__SYSCLK_DIV_4 | CKCON0_T0M__PRESCALE
+			| CKCON0_T2MH__EXTERNAL_CLOCK | CKCON0_T2ML__SYSCLK
+			| CKCON0_T3MH__EXTERNAL_CLOCK | CKCON0_T3ML__EXTERNAL_CLOCK
+			| CKCON0_T1M__PRESCALE;
+	// [CKCON0 - Clock Control 0]$
+
+	// $[CKCON1 - Clock Control 1]
+	// [CKCON1 - Clock Control 1]$
+
+	// $[TMOD - Timer 0/1 Mode]
+	/***********************************************************************
+	 - Mode 1, 16-bit Counter/Timer
+	 - Mode 0, 13-bit Counter/Timer
+	 - Timer Mode
+	 - Timer 0 enabled when TR0 = 1 irrespective of INT0 logic level
+	 - Timer Mode
+	 - Timer 1 enabled when TR1 = 1 irrespective of INT1 logic level
+	 ***********************************************************************/
+	TMOD = TMOD_T0M__MODE1 | TMOD_T1M__MODE0 | TMOD_CT0__TIMER
+			| TMOD_GATE0__DISABLED | TMOD_CT1__TIMER | TMOD_GATE1__DISABLED;
+	// [TMOD - Timer 0/1 Mode]$
+
+	// $[TCON - Timer 0/1 Control]
+	// [TCON - Timer 0/1 Control]$
+
+}
+
+extern void TIMER16_2_enter_DefaultMode_from_RESET(void) {
+	// $[Timer Initialization]
+	// Save Timer Configuration
+	uint8_t TMR2CN0_TR2_save;
+	TMR2CN0_TR2_save = TMR2CN0 & TMR2CN0_TR2__BMASK;
+	// Stop Timer
+	TMR2CN0 &= ~(TMR2CN0_TR2__BMASK);
+	// [Timer Initialization]$
+
+	// $[TMR2CN1 - Timer 2 Control 1]
+	// [TMR2CN1 - Timer 2 Control 1]$
+
+	// $[TMR2CN0 - Timer 2 Control]
+	// [TMR2CN0 - Timer 2 Control]$
+
+	// $[TMR2H - Timer 2 High Byte]
+	// [TMR2H - Timer 2 High Byte]$
+
+	// $[TMR2L - Timer 2 Low Byte]
+	// [TMR2L - Timer 2 Low Byte]$
+
+	// $[TMR2RLH - Timer 2 Reload High Byte]
+	// [TMR2RLH - Timer 2 Reload High Byte]$
+
+	// $[TMR2RLL - Timer 2 Reload Low Byte]
+	// [TMR2RLL - Timer 2 Reload Low Byte]$
+
+	// $[TMR2CN0]
+	// [TMR2CN0]$
+
+	// $[Timer Restoration]
+	// Restore Timer Configuration
+	TMR2CN0 |= TMR2CN0_TR2_save;
+	// [Timer Restoration]$
 
 }
 
